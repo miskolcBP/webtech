@@ -10,6 +10,11 @@ header {
     margin-bottom: 30px;
     font-weight: bold;
 }
+
+#toptext {
+    text-decoration: underline; 
+    font-style: italic;
+}
  
 h1 {
     font-size: 36px;
@@ -45,6 +50,12 @@ h1 {
 
 .h2 {
     background: #252525;
+}
+
+#schools {
+    text-align: left;
+     margin-left: 30px;
+      padding-right: 150px;
 }
  
 .card h2 {
