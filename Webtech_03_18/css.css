@@ -1,0 +1,24 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 50px;
+    background-color: rgb(65, 65, 65);
+    color:#ddd
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+li {
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #7c7c7c;
+    margin: 5px auto;
+    width: 200px;
+    background-color: #b9b9b9;
+    color: black;
+}
+li.completed {
+    text-decoration: line-through;
+    color: grey;
+}
