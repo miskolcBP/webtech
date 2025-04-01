@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Felhasználó</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+        }
+        img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+        }
+        h2 {
+            color: #333;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="user-container">
+        <p>Felhasználó betöltése...</p>
+    </div>
+
+    <script>
+        async function fetchUserData() {
+            const params = new URLSearchParams(window.location.search);
+            const username = params.get("id");
+            if (!username) {
+                document.getElementById("user-container").innerHTML = "<p>Nincs megadva felhasználónév!</p>";
+                return;
+            }
+
+            try {
+                const response = await fetch(`https://api.github.com/users/${username}`);
+                if (!response.ok) throw new Error("Felhasználó nem található");
+                const user = await response.json();
+                
+                let userHTML = "";
+                if (user.avatar_url) userHTML += `<img src="${user.avatar_url}" alt="Avatar">`;
+                if (user.name) userHTML += `<h2>${user.name}</h2>`;
+                if (user.bio) userHTML += `<p>${user.bio}</p>`;
+                if (user.blog) userHTML += `<p><a href="${user.blog}" target="_blank">${user.blog}</a></p>`;
+                if (user.location) userHTML += `<p>📍 ${user.location}</p>`;
+                if (user.public_repos !== null) userHTML += `<p>📂 Nyilvános repók: ${user.public_repos}</p>`;
+                if (user.followers !== null) userHTML += `<p>👥 Követők: ${user.followers}</p>`;
+                
+                document.getElementById("user-container").innerHTML = userHTML;
+            } catch (error) {
+                document.getElementById("user-container").innerHTML = `<p>Hiba történt: ${error.message}</p>`;
+            }
+        }
+        
+        fetchUserData();
+    </script>
+</body>
+</html>
